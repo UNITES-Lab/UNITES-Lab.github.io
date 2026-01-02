@@ -41,21 +41,31 @@
     // Image list - this will be populated by scanning the gallery folder
     // For GitHub Pages, we need to maintain this list manually or use a build script
     const GALLERY_IMAGES = [
-        'conference_01_ICML 2025 Poster Session.jpg',
-        'conference_02_NeurIPS 2024.jpg',
-        'conference_03_AAAI 2025 Presentation.jpg',
-        'conference_04_ICLR 2025 Workshop.jpg',
-        'activity_01_Weekly Group Meeting.jpg',
-        'activity_02_Research Seminar.jpg',
-        'activity_03_Paper Reading Session.jpg',
-        'lablife_01_Welcome Dinner 2024.jpg',
-        'lablife_02_Lab Celebration.jpg',
-        'lablife_03_Team Hiking Trip.jpg',
-        'lablife_04_Birthday Party.jpg',
-        'campus_01_Old Well.jpg',
-        'campus_02_Wilson Library.jpg',
-        'campus_03_Sitterson Hall.jpg',
-        'campus_04_Campus in Fall.jpg'
+        // Conference photos
+        'conference_01_NeurIPS 2024 - Xinyu, Pingzhi with Prof Li Ang and Students.jpg',
+        'conference_02_NeurIPS 2024 - Xinyu, Sukwon, Pingzhi with Prof Hu Xia.jpg',
+        'conference_03_NeurIPS 2024 - Xinyu, Pingzhi, Sukwon Group Photo.jpg',
+        // Activity photos
+        'activity_01_Feb 2025 - Prof Chen Presenting C2R Paper.jpg',
+        // Lab Life photos
+        'lablife_01_Aug 2024 - First PhD Cohort at Welcome Ceremony.jpg',
+        'lablife_02_Aug 2024 - First Lab Dinner, Texas Style BBQ.jpg',
+        'lablife_03_Oct 2024 - Matcha Cake for September Birthdays.jpg',
+        'lablife_04_Oct 2024 - Meetup with NCSU Prof Kaixiong Zhou at Mr Tokyo.jpg',
+        'lablife_05_Oct 2024 - Hiking After Meetup.jpg',
+        'lablife_06_Nov 2024 - Lab T-Shirt Design Draft.png',
+        'lablife_07_Jan 2025 - Lunch at So Hot Pot.jpg',
+        'lablife_08_Apr 2025 - Mango Cake for April Birthdays.jpg',
+        'lablife_09_Apr 2025 - Hotpot Lab Lunch.jpg',
+        'lablife_10_Aug 2025 - Board Games After Lunch.jpg',
+        'lablife_11_Sep 2025 - Dinner with HireEZ CEO at Szechuan Village.jpg',
+        "lablife_12_Sep 2025 - Close Collaborator Zhen Tan's Job Talk Visit.jpg",
+        'lablife_13_Oct 2025 - First Dinner with Zhen Tan and New Students.jpg',
+        'lablife_14_Nov 2025 - Group Meeting Dinner.jpg',
+        'lablife_15_Dec 2025 - Dinner with Collaborators from China.jpg',
+        // Campus photos
+        'campus_01_Old Well - UNC Landmark.jpg',
+        'campus_02_Wilson Library.jpg'
     ];
 
     /**
