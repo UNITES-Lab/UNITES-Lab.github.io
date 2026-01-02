@@ -197,7 +197,181 @@
             }
         });
 
+        // Add timeline link
+        links.push('<a href="#timeline">Timeline</a>');
+
         return links.join(' | ');
+    }
+
+    // Month names for timeline
+    const MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const MONTH_MAP = {
+        'jan': 0, 'feb': 1, 'mar': 2, 'apr': 3, 'may': 4, 'jun': 5,
+        'jul': 6, 'aug': 7, 'sep': 8, 'oct': 9, 'nov': 10, 'dec': 11
+    };
+
+    /**
+     * Parse date from description (e.g., "Aug 2024 - First Lab Dinner")
+     * @param {string} description - The image description
+     * @returns {Object|null} - {year, month, monthName, event} or null
+     */
+    function parseDateFromDescription(description) {
+        // Match patterns like "Aug 2024", "Dec 2025", etc.
+        const match = description.match(/^([A-Za-z]{3})\s+(\d{4})\s*-\s*(.+)$/);
+        if (!match) return null;
+
+        const monthStr = match[1].toLowerCase();
+        const year = parseInt(match[2], 10);
+        const event = match[3].trim();
+        const month = MONTH_MAP[monthStr];
+
+        if (month === undefined) return null;
+
+        return {
+            year: year,
+            month: month,
+            monthName: MONTH_NAMES[month],
+            event: event
+        };
+    }
+
+    /**
+     * Group images by year and month for timeline
+     * @param {Array} images - List of image filenames
+     * @returns {Object} - {year: {month: [items]}}
+     */
+    function groupByYearMonth(images) {
+        const grouped = {};
+
+        images.forEach(filename => {
+            const parsed = parseFilename(filename);
+            if (!parsed) return;
+
+            const dateInfo = parseDateFromDescription(parsed.description);
+            if (!dateInfo) return;
+
+            const { year, month } = dateInfo;
+
+            if (!grouped[year]) {
+                grouped[year] = {};
+            }
+            if (!grouped[year][month]) {
+                grouped[year][month] = [];
+            }
+
+            grouped[year][month].push({
+                ...parsed,
+                dateInfo: dateInfo
+            });
+        });
+
+        return grouped;
+    }
+
+    /**
+     * Generate HTML for timeline photo item
+     * @param {Object} item - Parsed image info with dateInfo
+     * @returns {string} - HTML string
+     */
+    function generateTimelinePhotoHTML(item) {
+        const imagePath = 'gallery/' + item.filename;
+        // Use full description instead of just event
+        return `
+            <div class="timeline-photo">
+                <a href="${imagePath}" data-fancybox="timeline" data-caption="${item.description}">
+                    <img src="${imagePath}" alt="${item.description}" loading="lazy">
+                </a>
+                <span class="timeline-photo-caption">${item.description}</span>
+            </div>
+        `;
+    }
+
+    /**
+     * Generate HTML for a month entry in timeline
+     * @param {number} month - Month index (0-11)
+     * @param {Array} items - Items for this month
+     * @param {number} index - Index for animation delay
+     * @returns {string} - HTML string
+     */
+    function generateTimelineMonthHTML(month, items, index) {
+        const monthName = MONTH_NAMES[month];
+        const photosHTML = items.map(item => generateTimelinePhotoHTML(item)).join('');
+        const delay = (index % 6) * 30;
+
+        return `
+            <div class="timeline-entry" data-aos="fade-up" data-aos-delay="${delay}" data-aos-duration="300">
+                <div class="timeline-month">${monthName}</div>
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-photos">
+                        ${photosHTML}
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    /**
+     * Generate HTML for a year section in timeline
+     * @param {number} year - The year
+     * @param {Object} months - {month: [items]}
+     * @returns {string} - HTML string
+     */
+    function generateTimelineYearHTML(year, months) {
+        // Sort months in descending order (Dec to Jan)
+        const sortedMonths = Object.keys(months)
+            .map(m => parseInt(m, 10))
+            .sort((a, b) => b - a);
+
+        let monthsHTML = '';
+        sortedMonths.forEach((month, index) => {
+            monthsHTML += generateTimelineMonthHTML(month, months[month], index);
+        });
+
+        return `
+            <div class="timeline-year-section">
+                <div class="timeline-year" data-aos="fade-up" data-aos-duration="300">${year}</div>
+                <div class="timeline-line">
+                    ${monthsHTML}
+                </div>
+            </div>
+        `;
+    }
+
+    /**
+     * Generate the complete timeline HTML
+     * @param {Object} grouped - Images grouped by year and month
+     * @returns {string} - HTML string
+     */
+    function generateTimelineHTML(grouped) {
+        // Sort years in descending order
+        const sortedYears = Object.keys(grouped)
+            .map(y => parseInt(y, 10))
+            .sort((a, b) => b - a);
+
+        if (sortedYears.length === 0) {
+            return '';
+        }
+
+        let yearsHTML = '';
+        sortedYears.forEach(year => {
+            yearsHTML += generateTimelineYearHTML(year, grouped[year]);
+        });
+
+        return `
+            <div class="row" style="margin-top: 40px;">
+                <div class="col-lg-12" id="timeline">
+                    <div class="section-title" style="margin-bottom:20px" data-aos="fade-up" data-aos-duration="300">
+                        <h2>Timeline</h2>
+                    </div>
+                    <p class="gallery-section-desc" data-aos="fade-up" data-aos-duration="300" data-aos-delay="50">A chronological journey through our lab's memorable moments.</p>
+                    <div class="timeline-container">
+                        ${yearsHTML}
+                    </div>
+                    <p class="back-to-top"><a href="#top">Back to Top</a></p>
+                </div>
+            </div>
+        `;
     }
 
     /**
@@ -212,19 +386,25 @@
             return;
         }
 
-        // Group images
+        // Group images by category
         const grouped = groupByCategory(GALLERY_IMAGES);
+
+        // Group images by year/month for timeline
+        const timelineGrouped = groupByYearMonth(GALLERY_IMAGES);
 
         // Generate navigation
         if (navContainer) {
             navContainer.innerHTML = generateQuickNav(grouped);
         }
 
-        // Generate sections
+        // Generate category sections
         let sectionsHTML = '';
         Object.keys(CATEGORIES).forEach(cat => {
             sectionsHTML += generateSectionHTML(cat, grouped[cat]);
         });
+
+        // Generate timeline section
+        sectionsHTML += generateTimelineHTML(timelineGrouped);
 
         container.innerHTML = sectionsHTML;
 
