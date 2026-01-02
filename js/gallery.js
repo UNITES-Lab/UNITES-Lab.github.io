@@ -45,6 +45,8 @@
         'conference_01_NeurIPS 2024 - Xinyu, Pingzhi with Prof Li Ang and Students.jpg',
         'conference_02_NeurIPS 2024 - Xinyu, Sukwon, Pingzhi with Prof Hu Xia.jpg',
         'conference_03_NeurIPS 2024 - Xinyu, Pingzhi, Sukwon Group Photo.jpg',
+        'conference_04_Dec 2024 - Pingzhi, Xinyu Presenting Model GLUE at NeurIPS 2024.jpg',
+        'conference_05_Dec 2025 - Pingzhi Presenting Mozart at NeurIPS 2025.jpg',
         // Activity photos
         'activity_01_Feb 2025 - Prof Chen Presenting C2R Paper.jpg',
         // Lab Life photos
