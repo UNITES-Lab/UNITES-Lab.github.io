@@ -125,12 +125,14 @@
      * Generate HTML for a single gallery item
      * @param {Object} item - Parsed image info
      * @param {string} category - Category key for fancybox grouping
+     * @param {number} index - Item index for staggered animation delay
      * @returns {string} - HTML string
      */
-    function generateItemHTML(item, category) {
+    function generateItemHTML(item, category, index) {
         const imagePath = 'gallery/' + item.filename;
+        const delay = (index % 4) * 50; // Stagger by column position (0, 50, 100, 150ms)
         return `
-            <div class="gallery-item">
+            <div class="gallery-item" data-aos="fade-up" data-aos-delay="${delay}" data-aos-duration="300">
                 <a href="${imagePath}" data-fancybox="${category}" data-caption="${item.description}">
                     <img src="${imagePath}" alt="${item.description}" loading="lazy">
                 </a>
@@ -152,15 +154,15 @@
             return ''; // Skip empty categories
         }
 
-        const itemsHTML = items.map(item => generateItemHTML(item, categoryKey)).join('');
+        const itemsHTML = items.map((item, index) => generateItemHTML(item, categoryKey, index)).join('');
 
         return `
             <div class="row" style="margin-top: 40px;">
                 <div class="col-lg-12" id="${config.anchor}">
-                    <div class="section-title" style="margin-bottom:20px">
+                    <div class="section-title" style="margin-bottom:20px" data-aos="fade-up" data-aos-duration="300">
                         <h2>${config.title}</h2>
                     </div>
-                    <p class="gallery-section-desc">${config.description}</p>
+                    <p class="gallery-section-desc" data-aos="fade-up" data-aos-duration="300" data-aos-delay="50">${config.description}</p>
                     <div class="gallery-grid">
                         ${itemsHTML}
                     </div>
@@ -225,6 +227,11 @@
                     return $(this).data('caption') || '';
                 }
             });
+        }
+
+        // Refresh AOS after dynamic content is loaded
+        if (typeof AOS !== 'undefined') {
+            AOS.refresh();
         }
     }
 
