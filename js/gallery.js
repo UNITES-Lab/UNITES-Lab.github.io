@@ -52,7 +52,7 @@
         'activity_01_Feb 2025 - Prof Chen Presenting C2R Paper.jpg',
         // Lab Life photos
         'lablife_01_Aug 2024 - First PhD Cohort at Welcome Ceremony.jpg',
-        'lablife_02_Aug 2024 - First Lab Dinner, Texas Style BBQ.jpg',
+        'lablife_02_Aug 2024 - First Lab Lunch, Texas Style BBQ.jpg',
         'lablife_03_Oct 2024 - Matcha Cake for September Birthdays.jpg',
         'lablife_04_Oct 2024 - Meetup with NCSU Prof Kaixiong Zhou at Mr Tokyo.jpg',
         'lablife_05_Oct 2024 - Hiking After Meetup.jpg',
