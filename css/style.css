@@ -1582,3 +1582,48 @@ strong {
     height: 70px;
   }
 }
+
+/* Sponsor Section */
+.sponsor-section {
+  background: #f9f9f9;
+  padding: 3rem 0;
+}
+
+.sponsor-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 30px 40px;
+}
+
+.sponsor-logo {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+  filter: grayscale(30%);
+  opacity: 0.85;
+  transition: all 0.3s ease;
+}
+
+.sponsor-logo:hover {
+  filter: grayscale(0%);
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .sponsor-grid {
+    gap: 20px 30px;
+  }
+
+  .sponsor-logo {
+    height: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sponsor-logo {
+    height: 35px;
+  }
+}
