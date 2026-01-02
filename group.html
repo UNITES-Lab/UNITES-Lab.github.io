@@ -345,6 +345,23 @@
 
 <script src="js/main.js"></script>
 
+<script>
+// Make member cards with homepage links clickable
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.member-card').forEach(function(card) {
+        var link = card.querySelector('.member-info h4 a');
+        if (link) {
+            card.classList.add('has-link');
+            card.addEventListener('click', function(e) {
+                if (e.target.tagName !== 'A') {
+                    window.open(link.href, '_blank');
+                }
+            });
+        }
+    });
+});
+</script>
+
 </body>
 
 </html>

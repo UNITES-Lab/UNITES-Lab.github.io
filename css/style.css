@@ -1489,11 +1489,49 @@ strong {
   padding: 12px 15px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
+  position: relative;
+  border: 2px solid transparent;
 }
 
-.member-card:hover {
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-  transform: translateY(-2px);
+/* Cards with homepage link - clickable style */
+.member-card.has-link {
+  cursor: pointer;
+  border-color: #e8f5e9;
+}
+
+.member-card.has-link::after {
+  content: "\2197";
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  font-size: 14px;
+  color: #8bc34a;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.member-card.has-link:hover {
+  box-shadow: 0 6px 20px rgba(139, 195, 74, 0.25);
+  transform: translateY(-3px);
+  border-color: #8bc34a;
+}
+
+.member-card.has-link:hover::after {
+  opacity: 1;
+}
+
+.member-card.has-link:hover .member-photo {
+  border-color: #8bc34a;
+}
+
+/* Cards without homepage link */
+.member-card:not(.has-link) {
+  opacity: 0.85;
+}
+
+.member-card:not(.has-link):hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: none;
 }
 
 .member-photo {
@@ -1504,6 +1542,7 @@ strong {
   margin-right: 15px;
   flex-shrink: 0;
   border: 3px solid #f0f0f0;
+  transition: border-color 0.3s ease;
 }
 
 .member-info {
@@ -1522,7 +1561,7 @@ strong {
   text-decoration: none;
 }
 
-.member-info h4 a:hover {
+.member-card.has-link:hover .member-info h4 a {
   color: #8bc34a;
 }
 
