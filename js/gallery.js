@@ -321,10 +321,10 @@
      * @returns {string} - HTML string
      */
     function generateTimelineYearHTML(year, months) {
-        // Sort months in descending order (Dec to Jan)
+        // Sort months in ascending order (Jan to Dec)
         const sortedMonths = Object.keys(months)
             .map(m => parseInt(m, 10))
-            .sort((a, b) => b - a);
+            .sort((a, b) => a - b);
 
         let monthsHTML = '';
         sortedMonths.forEach((month, index) => {
@@ -347,10 +347,10 @@
      * @returns {string} - HTML string
      */
     function generateTimelineHTML(grouped) {
-        // Sort years in descending order
+        // Sort years in ascending order (earlier first)
         const sortedYears = Object.keys(grouped)
             .map(y => parseInt(y, 10))
-            .sort((a, b) => b - a);
+            .sort((a, b) => a - b);
 
         if (sortedYears.length === 0) {
             return '';
