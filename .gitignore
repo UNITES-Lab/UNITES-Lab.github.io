@@ -142,3 +142,6 @@ vite.config.ts.timestamp-*
 
 # Local development server
 server.py
+
+# vibe coding
+CLAUDE.md
