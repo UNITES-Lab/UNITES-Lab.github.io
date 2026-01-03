@@ -42,16 +42,17 @@
     // For GitHub Pages, we need to maintain this list manually or use a build script
     const GALLERY_IMAGES = [
         // Conference photos
-        'conference_01_NeurIPS 2024 - Xinyu, Pingzhi with Prof Li Ang and Students.jpg',
-        'conference_02_NeurIPS 2024 - Xinyu, Sukwon, Pingzhi with Prof Hu Xia.jpg',
-        'conference_03_NeurIPS 2024 - Xinyu, Pingzhi, Sukwon Group Photo.jpg',
+        'conference_01_NeurIPS 2024 - Xinyu, Pingzhi with Prof Ang Li and Students.jpg',
+        'conference_02_NeurIPS 2024 - Xinyu, Sukwon, Pingzhi with Prof Xia Hu.jpg',
+        'conference_03_NeurIPS 2024 - Xinyu, Pingzhi, Sukwon with Prof Ying Ding and Yuli Wang.jpg',
         'conference_04_Dec 2024 - Pingzhi, Xinyu Presenting Model GLUE at NeurIPS 2024.jpg',
         'conference_05_Dec 2025 - Pingzhi Presenting Mozart at NeurIPS 2025.jpg',
+        'conference_06_Dec 2025 - Huaizhi Presenting BetaConform at NeurIPS 2025.jpeg',
         // Activity photos
         'activity_01_Feb 2025 - Prof Chen Presenting C2R Paper.jpg',
         // Lab Life photos
         'lablife_01_Aug 2024 - First PhD Cohort at Welcome Ceremony.jpg',
-        'lablife_02_Aug 2024 - First Lab Dinner, Texas Style BBQ.jpg',
+        'lablife_02_Aug 2024 - First Lab Lunch, Texas Style BBQ.jpg',
         'lablife_03_Oct 2024 - Matcha Cake for September Birthdays.jpg',
         'lablife_04_Oct 2024 - Meetup with NCSU Prof Kaixiong Zhou at Mr Tokyo.jpg',
         'lablife_05_Oct 2024 - Hiking After Meetup.jpg',
@@ -320,10 +321,10 @@
      * @returns {string} - HTML string
      */
     function generateTimelineYearHTML(year, months) {
-        // Sort months in descending order (Dec to Jan)
+        // Sort months in ascending order (Jan to Dec)
         const sortedMonths = Object.keys(months)
             .map(m => parseInt(m, 10))
-            .sort((a, b) => b - a);
+            .sort((a, b) => a - b);
 
         let monthsHTML = '';
         sortedMonths.forEach((month, index) => {
@@ -346,10 +347,10 @@
      * @returns {string} - HTML string
      */
     function generateTimelineHTML(grouped) {
-        // Sort years in descending order
+        // Sort years in ascending order (earlier first)
         const sortedYears = Object.keys(grouped)
             .map(y => parseInt(y, 10))
-            .sort((a, b) => b - a);
+            .sort((a, b) => a - b);
 
         if (sortedYears.length === 0) {
             return '';
